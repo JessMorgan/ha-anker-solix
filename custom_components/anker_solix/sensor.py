@@ -746,7 +746,7 @@ SITE_SENSORS = [
         value_fn=lambda d, jk, _: count
         if (count := len(list((d.get("pps_info") or {}).get(jk) or []))) > 0
         else None,
-        exclude_fn=lambda s, _: not ({SolixDeviceType.PPS.value} - s),
+        exclude_fn=lambda s, _: not ({SolixDeviceType.PPS.value, SolixDeviceType.SOLARBANK_PPS} - s),
     ),
     AnkerSolixSensorDescription(
         key="solar_list",
@@ -886,7 +886,7 @@ SITE_SENSORS = [
         value_fn=lambda d, jk, _: (d.get("pps_info") or {}).get(jk),
         suggested_display_precision=0,
         # exclude sensor if unused artifacts in structure
-        exclude_fn=lambda s, d: not ({SolixDeviceType.PPS.value} - s)
+        exclude_fn=lambda s, d: not ({SolixDeviceType.PPS.value, SolixDeviceType.SOLARBANK_PPS} - s)
         or not list((d.get("pps_info") or {}).get("pps_list") or []),
     ),
     AnkerSolixSensorDescription(
@@ -900,7 +900,7 @@ SITE_SENSORS = [
         value_fn=lambda d, jk, _: (d.get("pps_info") or {}).get(jk),
         suggested_display_precision=0,
         # exclude sensor if unused artifacts in structure
-        exclude_fn=lambda s, d: not ({SolixDeviceType.PPS.value} - s)
+        exclude_fn=lambda s, d: not ({SolixDeviceType.PPS.value, SolixDeviceType.SOLARBANK_PPS} - s)
         or not list((d.get("pps_info") or {}).get("pps_list") or []),
     ),
     AnkerSolixSensorDescription(
@@ -914,7 +914,7 @@ SITE_SENSORS = [
         value_fn=lambda d, jk, _: 100 * float((d.get("pps_info") or {}).get(jk)),
         suggested_display_precision=0,
         # exclude sensor if unused artifacts in structure
-        exclude_fn=lambda s, d: not ({SolixDeviceType.PPS.value} - s)
+        exclude_fn=lambda s, d: not ({SolixDeviceType.PPS.value, SolixDeviceType.SOLARBANK_PPS} - s)
         or not list((d.get("pps_info") or {}).get("pps_list") or []),
     ),
     AnkerSolixSensorDescription(
