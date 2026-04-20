@@ -4071,28 +4071,18 @@ SOLIXMQTTMAP: Final[dict] = {
     },
     # PPS C200 (A1725/A1727)
     "A1725": {
+        "0045": CMD_DEVICE_TIMEOUT_MIN,  # Device timeout: 0 (Never), 30, 60, 120, 240, 360, 720, 1440 minutes
         "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
-        "004f": CMD_LIGHT_MODE  # LED mode: Off (0), Low (1), Medium (2), High (3)
-        | {
-            "a2": {
-                **CMD_LIGHT_MODE["a2"],
-                VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
-            },
-        },
+        "004c": CMD_DISPLAY_MODE,  # Display brightness: Low (1), Medium (2), High (3)
         "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
         "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
         "0405": _A1725_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
     },
     "A1727": {
+        "0045": CMD_DEVICE_TIMEOUT_MIN,  # Device timeout: 0 (Never), 30, 60, 120, 240, 360, 720, 1440 minutes
         "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
-        "004f": CMD_LIGHT_MODE  # LED mode: Off (0), Low (1), Medium (2), High (3)
-        | {
-            "a2": {
-                **CMD_LIGHT_MODE["a2"],
-                VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
-            },
-        },
+        "004c": CMD_DISPLAY_MODE,  # Display brightness: Low (1), Medium (2), High (3)
         "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
         "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
