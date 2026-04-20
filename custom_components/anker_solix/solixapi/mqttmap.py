@@ -149,7 +149,13 @@ _A1725_0405 = {
     "bd": {NAME: "usba_1_status"},  # USB-A1 top status: Inactive (0), Discharging (1)
     "be": {NAME: "usba_2_status"},  # USB-A2 bottom status: Inactive (0), Discharging (1)
     "c3": {NAME: "device_sn"},
-    "c7": {NAME: "display_mode"},  # Display: On (1) or Off (0)
+    "c4": {
+        NAME: "device_timeout_minutes"
+    },  # Device timeout: never, 30, 60, 120, 240, 360, 720, 1440 minutes
+    "c5": {
+        NAME: "display_timeout_seconds"
+    },  # Display timeout: 20, 30, 60, 300, 1800 seconds
+    "c7": {NAME: "display_mode"},  # Brightness: Low (1), Medium (2), High (3)
     "c9": {NAME: "temp_unit_fahrenheit"},  # Temperature unit: Celsius (0), Fahrenheit (1)
     "ca": {NAME: "display_switch"},  # Off (0) or On (1)
     "cd": {NAME: "charging_status"},  # Inactive (0), Solar (1)
@@ -4065,6 +4071,14 @@ SOLIXMQTTMAP: Final[dict] = {
     },
     # PPS C200 (A1725/A1727)
     "A1725": {
+        "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
+        "004f": CMD_LIGHT_MODE  # LED mode: Off (0), Low (1), Medium (2), High (3)
+        | {
+            "a2": {
+                **CMD_LIGHT_MODE["a2"],
+                VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
+            },
+        },
         "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
         "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
