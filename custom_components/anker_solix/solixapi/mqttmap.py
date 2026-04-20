@@ -156,12 +156,196 @@ _A1725_0405 = {
     "fe": {NAME: "msg_timestamp"},  # Message timestamp
 }
 
+_A17A4_0080 = {
+    # Everfrost 2 temperature setting response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown
+    "a3": {NAME: "temp_setting"},  # Temperature setting value
+    "fe": {NAME: "msg_timestamp"},  # Message timestamp
+}
+
+_A17A4_0880 = {
+    # Everfrost 2 temperature setting device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown
+}
+
+_A17A4_0081 = {
+    # Everfrost 2 settings response (message type 0081)
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+    "a2": {NAME: "a2_setting"},
+    "fe": {NAME: "msg_timestamp"},
+}
+
+_A17A4_0082 = {
+    # Everfrost 2 cooling mode setting
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+    "a2": {NAME: "a2_setting"},
+    "fe": {NAME: "msg_timestamp"},
+}
+
+_A17A4_0083 = {
+    # Everfrost 2 display settings
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+    "a2": {NAME: "a2_setting"},
+    "fe": {NAME: "msg_timestamp"},
+}
+
+_A17A4_0882 = {
+    # Everfrost 2 cooling mode device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+}
+
+_A17A4_0883 = {
+    # Everfrost 2 display device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+}
+
+_A17A4_0881 = {
+    # Everfrost 2 settings device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+}
+
+_A17A4_0857 = {
+    # Everfrost 2 state info response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown
+}
+
+_A17A4_0405 = {
+    # Everfrost 2 40L param info
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown identifier
+    "a2": {NAME: "device_sn"},  # Device serial number
+    "a3": {NAME: "a3_unk"},  # Unknown - empty
+    "a4": {NAME: "device_pn"},  # Device model number
+    "a5": {NAME: "power_switch"},  # Power state: Off (0) or On (1)
+    "a6": {NAME: "power_draw"},  # Power consumption in Watts
+    "a7": {NAME: "compressor_power"},  # Compressor power in Watts
+    "a8": {NAME: "a8_unk"},  # Unknown - constant 255
+    "a9": {NAME: "a9_unk"},  # Unknown - constant 255
+    "aa": {NAME: "aa_unk"},  # Unknown - constant 255
+    "ab": {NAME: "cooling_enabled"},  # Cooling enabled: 1=enabled
+    "ac": {NAME: "ac_unk"},  # Unknown - constant 0
+    "ad": {NAME: "active_status"},  # Active status: 1=active
+    "ae": {NAME: "ae_unk"},  # Unknown - constant 0
+    "af": {NAME: "af_unk"},  # Unknown flag
+    "b0": {NAME: "b0_unk"},  # Unknown flag
+    "b1": {NAME: "temperature_actual"},  # Actual temperature in Celsius
+    "b2": {NAME: "b2_unk"},  # Unknown - constant 0
+    "b3": {NAME: "b3_unk"},  # Unknown - constant 0
+    "b4": {NAME: "b4_unk"},  # Unknown - constant 0
+    "b5": {NAME: "b5_unk"},  # Unknown - runtime counter?
+    "b6": {NAME: "b6_unk"},  # Unknown - runtime counter?
+    "b7": {NAME: "b7_unk"},  # Unknown
+    "b8": {NAME: "cooling_active"},  # Cooling actively running: 1=running, 0=idle
+    "d0": {NAME: "battery_sn"},  # Removable battery serial number
+    "d1": {NAME: "battery_data"},  # Battery status data (binary)
+    "fd": {NAME: "bms_id"},  # BMS identifier string
+    "fe": {NAME: "msg_timestamp"},  # Message timestamp
+}
+
 _A1725_0401 = {
     # C200 DC param info (A1725/A1727) - settings
     TOPIC: "param_info",
-    "a1": {NAME: "device_pn"},  # Device PN identifier
-    "a4": {NAME: "display_switch"},  # Off (0) or On (1)
+    "a1": {NAME: "a1_unk"},  # Unknown
+    "a3": {NAME: "temp_setting"},  # Temperature setting value
+    "fe": {NAME: "msg_timestamp"},  # Message timestamp
 }
+
+_A17A4_0880 = {
+    # Everfrost 2 temperature setting device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown
+}
+
+_A17A4_0081 = {
+    # Everfrost 2 settings response (message type 0081)
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+    "a2": {NAME: "a2_setting"},
+    "fe": {NAME: "msg_timestamp"},
+}
+
+_A17A4_0082 = {
+    # Everfrost 2 cooling mode setting
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+    "a2": {NAME: "a2_setting"},
+    "fe": {NAME: "msg_timestamp"},
+}
+
+_A17A4_0083 = {
+    # Everfrost 2 display settings
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+    "a2": {NAME: "a2_setting"},
+    "fe": {NAME: "msg_timestamp"},
+}
+
+_A17A4_0882 = {
+    # Everfrost 2 cooling mode device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+}
+
+_A17A4_0883 = {
+    # Everfrost 2 display device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+}
+
+_A17A4_0881 = {
+    # Everfrost 2 settings device response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},
+}
+
+_A17A4_0857 = {
+    # Everfrost 2 state info response
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown
+}
+
+_A17A4_0405 = {
+    # Everfrost 2 40L param info
+    TOPIC: "param_info",
+    "a1": {NAME: "a1_unk"},  # Unknown identifier
+    "a2": {NAME: "device_sn"},  # Device serial number
+    "a3": {NAME: "a3_unk"},  # Unknown - empty
+    "a4": {NAME: "device_pn"},  # Device model number
+    "a5": {NAME: "power_switch"},  # Power state: Off (0) or On (1)
+    "a6": {NAME: "power_draw"},  # Power consumption in Watts
+    "a7": {NAME: "compressor_power"},  # Compressor power in Watts
+    "a8": {NAME: "a8_unk"},  # Unknown - constant 255
+    "a9": {NAME: "a9_unk"},  # Unknown - constant 255
+    "aa": {NAME: "aa_unk"},  # Unknown - constant 255
+    "ab": {NAME: "cooling_enabled"},  # Cooling enabled: 1=enabled
+    "ac": {NAME: "ac_unk"},  # Unknown - constant 0
+    "ad": {NAME: "active_status"},  # Active status: 1=active
+    "ae": {NAME: "ae_unk"},  # Unknown - constant 0
+    "af": {NAME: "af_unk"},  # Unknown flag
+    "b0": {NAME: "b0_unk"},  # Unknown flag
+    "b1": {NAME: "temperature_actual"},  # Actual temperature in Celsius
+    "b2": {NAME: "b2_unk"},  # Unknown - constant 0
+    "b3": {NAME: "b3_unk"},  # Unknown - constant 0
+    "b4": {NAME: "b4_unk"},  # Unknown - constant 0
+    "b5": {NAME: "b5_unk"},  # Unknown - runtime counter?
+    "b6": {NAME: "b6_unk"},  # Unknown - runtime counter?
+    "b7": {NAME: "b7_unk"},  # Unknown
+    "b8": {NAME: "cooling_active"},  # Cooling actively running: 1=running, 0=idle
+    "d0": {NAME: "battery_sn"},  # Removable battery serial number
+    "d1": {NAME: "battery_data"},  # Battery status data (binary)
+    "fd": {NAME: "bms_id"},  # BMS identifier string
+    "fe": {NAME: "msg_timestamp"},  # Message timestamp
+}
+
 
 _A1722_0405 = {
     # C300 AC param info
@@ -3891,6 +4075,20 @@ SOLIXMQTTMAP: Final[dict] = {
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
         "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
         "0405": _A1725_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
+    },
+    # Powercooler Everfrost 2 40L
+    "A17A4": {
+        "0057": CMD_REALTIME_TRIGGER,
+        "0080": _A17A4_0080,
+        "0081": _A17A4_0081,
+        "0082": _A17A4_0082,
+        "0083": _A17A4_0083,
+        "0405": _A17A4_0405,
+        "0857": _A17A4_0857,
+        "0880": _A17A4_0880,
+        "0881": _A17A4_0881,
+        "0882": _A17A4_0882,
+        "0883": _A17A4_0883,
     },
     # PPS C1000(X) + B1000 Extension
     "A1761": {
