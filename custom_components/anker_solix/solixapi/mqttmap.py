@@ -5194,11 +5194,13 @@ SOLIXMQTTMAP: Final[dict] = {
             SolixMqttCommands.realtime_trigger: {
                 "a2": {
                     NAME: "realtime_trigger",
+                    TYPE: DeviceHexDataTypes.ui.value,
                     VALUE_OPTIONS: {"off": 0, "on": 1},
                     VALUE_DEFAULT: 1,
                 },
                 "a3": {
                     NAME: "trigger_timeout_sec",
+                    TYPE: DeviceHexDataTypes.var.value,
                     VALUE_MIN: 60,
                     VALUE_MAX: 600,
                     VALUE_DEFAULT: 300,
