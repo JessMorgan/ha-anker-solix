@@ -72,7 +72,7 @@ ALLOW_TESTMODE: Final[bool] = False
 # True will enable variance for some measurement numbers when running in testmode from static files (numbers have no logical meaning)
 TEST_NUMBERVARIANCE: Final[bool] = False
 # True will create all entities per device type for testing even if no values available
-CREATE_ALL_ENTITIES: Final[bool] = True
+CREATE_ALL_ENTITIES: Final[bool] = False
 # True will enable MQTT usage per default
 DEFAULT_MQTT_USAGE: Final[bool] = True
 
