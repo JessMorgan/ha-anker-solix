@@ -199,6 +199,44 @@ _A1722_0405 = {
     "fe": {NAME: "msg_timestamp"},  # Message timestamp
 }
 
+_A17A4_0405 = {
+    # SOLIX Everfrost 2 40L (A17A4) param info
+    TOPIC: "param_info",
+    "a1": {NAME: "device_type"},  # Device type marker ('4')
+    "a2": {NAME: "device_sn"},  # Device serial number
+    "a3": {NAME: "empty"},  # Empty
+    "a4": {NAME: "device_pn"},  # Device model (e.g. "A17A4")
+    "a5": {NAME: "power_switch"},  # Power switch: Off (0), On (1)
+    "a6": {NAME: "target_temp"},  # Target temperature setting (in unit from b0)
+    "a7": {NAME: "current_temp"},  # Current temperature (in unit from b0)
+    "a8": {NAME: "constant_ff_1"},  # Always 255
+    "a9": {NAME: "constant_ff_2"},  # Always 255
+    "aa": {NAME: "constant_ff_3"},  # Always 255
+    "ab": {NAME: "cooling_mode"},  # Cooling mode: Max (0), Eco (1), Smart (2)
+    "ac": {NAME: "unknown_ac"},  # Always 0
+    "ad": {NAME: "screen_brightness"},  # Brightness: Low (0), Mid (1), High (2)
+    "ae": {NAME: "keep_screen_always_on"},  # Screen always on: Off (0), On (1)
+    "af": {NAME: "voltage_protection"},  # Voltage protection: Low (0), Mid (1), High (2)
+    "b0": {NAME: "temp_unit"},  # Temp unit: Celsius (0), Fahrenheit (1)
+    "b1": {NAME: "internal_temp"},  # Internal temperature sensor
+    "b2": {NAME: "unknown_b2"},  # Always 0
+    "b3": {NAME: "unknown_b3"},  # Always 0
+    "b4": {NAME: "unknown_b4"},  # Always 0
+    "b5": {NAME: "runtime_counter_1"},  # Runtime counter
+    "b6": {NAME: "runtime_counter_2"},  # Runtime counter
+    "b7": {NAME: "runtime_counter_3"},  # Runtime counter
+    "b8": {NAME: "cooling_active"},  # Cooling active: Off (0), On (1)
+    # Battery data (d0): Binary field, 35 bytes
+    # Byte 29: power_state (0=off, 1=charging, 2=discharging)
+    # Byte 30: battery_soc (0-100%)
+    # Byte 31: input_power (Watts, when charging)
+    # Byte 33: output_power (Watts, when discharging)
+    "d0": {NAME: "battery_data"},  # Battery data incl. SOC, power state, input/output watts
+    "d1": {NAME: "battery_status"},  # Battery status (all 0xFF when unavailable)
+    "fd": {NAME: "bms_id"},  # BMS identifier
+    "fe": {NAME: "msg_timestamp"},  # Message timestamp
+}
+
 _A1728_0401 = {
     # C300(X) DC param info
     TOPIC: "param_info",
@@ -5134,6 +5172,58 @@ SOLIXMQTTMAP: Final[dict] = {
         "0840": _EV_CHARGER_0405,
         # Interval: Control change confirmation message
         "0900": _EV_CHARGER_0405,
+    },
+    # SOLIX Everfrost 2 40L (A17A4)
+    "A17A4": {
+        "004c": {
+            "a2": {
+                NAME: "screen_brightness",
+                VALUE_OPTIONS: {"low": 0, "medium": 1, "high": 2},
+            },
+        },
+        "0050": {
+            "a2": {
+                NAME: "temp_unit",
+                VALUE_OPTIONS: {"celsius": 0, "fahrenheit": 1},
+            },
+        },
+        "0057": {
+            COMMAND_LIST: [
+                SolixMqttCommands.realtime_trigger,
+            ],
+            SolixMqttCommands.realtime_trigger: {
+                "a2": {
+                    NAME: "realtime_trigger",
+                    VALUE_OPTIONS: {"off": 0, "on": 1},
+                },
+            },
+        },
+        "0080": {
+            "a2": {
+                NAME: "target_temp",
+                VALUE_MIN: 0,
+                VALUE_MAX: 500,
+            },
+        },
+        "0081": {
+            "a2": {
+                NAME: "cooling_mode",
+                VALUE_OPTIONS: {"max": 0, "eco": 1, "smart": 2},
+            },
+        },
+        "0082": {
+            "a2": {
+                NAME: "keep_screen_always_on",
+                VALUE_OPTIONS: {"off": 0, "on": 1},
+            },
+        },
+        "0083": {
+            "a2": {
+                NAME: "voltage_protection",
+                VALUE_OPTIONS: {"low": 0, "medium": 1, "high": 2},
+            },
+        },
+        "0405": _A17A4_0405,
     },
     "A7320": {
         # SOLIX Smart Generator 5500
