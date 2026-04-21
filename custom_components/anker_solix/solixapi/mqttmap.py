@@ -5195,6 +5195,13 @@ SOLIXMQTTMAP: Final[dict] = {
                 "a2": {
                     NAME: "realtime_trigger",
                     VALUE_OPTIONS: {"off": 0, "on": 1},
+                    VALUE_DEFAULT: 1,
+                },
+                "a3": {
+                    NAME: "trigger_timeout_sec",
+                    VALUE_MIN: 60,
+                    VALUE_MAX: 600,
+                    VALUE_DEFAULT: 300,
                 },
             },
         },
