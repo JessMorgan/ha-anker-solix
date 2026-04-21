@@ -533,52 +533,52 @@ class DeviceHexDataField:
                 # The listed fieldmaps are used sequentially, a byte offset can be specified in relation to actual field start position
                 # The offset is only required if there are byte field gaps without description
                 pos = 0
-                flds = fieldmap.get(BYTES, fieldmap) if isinstance(fieldmap, dict) else fieldmap
-                for key, bytemap in (
-                    enumerate(flds) if isinstance(flds, list) else flds.items()
-                ):
-                    if isinstance(key, int):
-                        # relative byte position last position
-                        pos += int(bytemap.get(OFFSET, 0))
-                    else:
-                        pos = int(key)
-                    # break field decoding if hexvalue shorter than description
-                    if pos >= len(self.f_value):
-                        break
-                    ftype = bytemap.get(TYPE, DeviceHexDataTypes.unk.value)
-                    # set default length based on fixed types
-                    if ftype == DeviceHexDataTypes.ui.value:
-                        length = 1
-                    elif ftype == DeviceHexDataTypes.sile.value:
-                        length = 2
-                    elif ftype in [DeviceHexDataTypes.sfle.value, DeviceHexDataTypes.var.value]:
-                        length = 4
-                    else:
-                        length = bytemap.get(LENGTH, 0)
-                    if length == 0:
-                        # first byte is length of bytes following for field
-                        length = int.from_bytes(self.f_value[pos : pos + 1])
-                        pos += 1
-                        values.update(
-                            self.extract_value(
-                                hexdata=self.f_value[pos : pos + length],
-                                fieldtype=bytemap.get(
-                                    TYPE, DeviceHexDataTypes.unk.value
-                                ),
-                                fieldmap=bytemap,
+                flds = fieldmap.get(BYTES) if isinstance(fieldmap, dict) else fieldmap
+                if flds is None:
+                    if name := fieldmap.get(NAME):
+                        values[name] = hexdata.decode(errors="ignore").strip("\x00")
+                else:
+                    for key, bytemap in (
+                        enumerate(flds) if isinstance(flds, list) else flds.items()
+                    ):
+                        if isinstance(key, int):
+                            pos += int(bytemap.get(OFFSET, 0))
+                        else:
+                            pos = int(key)
+                        if pos >= len(self.f_value):
+                            break
+                        ftype = bytemap.get(TYPE, DeviceHexDataTypes.unk.value)
+                        if ftype == DeviceHexDataTypes.ui.value:
+                            length = 1
+                        elif ftype == DeviceHexDataTypes.sile.value:
+                            length = 2
+                        elif ftype in [DeviceHexDataTypes.sfle.value, DeviceHexDataTypes.var.value]:
+                            length = 4
+                        else:
+                            length = bytemap.get(LENGTH, 0)
+                        if length == 0:
+                            length = int.from_bytes(self.f_value[pos : pos + 1])
+                            pos += 1
+                            values.update(
+                                self.extract_value(
+                                    hexdata=self.f_value[pos : pos + length],
+                                    fieldtype=bytemap.get(
+                                        TYPE, DeviceHexDataTypes.unk.value
+                                    ),
+                                    fieldmap=bytemap,
+                                )
                             )
-                        )
-                    else:
-                        values.update(
-                            self.extract_value(
-                                hexdata=self.f_value[pos : pos + length],
-                                fieldtype=bytemap.get(
-                                    TYPE, DeviceHexDataTypes.unk.value
-                                ),
-                                fieldmap=bytemap,
+                        else:
+                            values.update(
+                                self.extract_value(
+                                    hexdata=self.f_value[pos : pos + length],
+                                    fieldtype=bytemap.get(
+                                        TYPE, DeviceHexDataTypes.unk.value
+                                    ),
+                                    fieldmap=bytemap,
+                                )
                             )
-                        )
-                    pos += length
+                        pos += length
             case DeviceHexDataTypes.json.value:
                 # Use Json Data class for extraction
                 values.update(
