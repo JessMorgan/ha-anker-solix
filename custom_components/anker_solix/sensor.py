@@ -3178,6 +3178,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["off", "on"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3189,6 +3190,7 @@ SITE_SENSORS = [
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=1,
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3200,6 +3202,7 @@ SITE_SENSORS = [
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=1,
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3210,6 +3213,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["max", "eco", "smart"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3220,6 +3224,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["low", "medium", "high"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3230,6 +3235,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["off", "on"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3240,6 +3246,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["low", "medium", "high"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3250,6 +3257,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["celsius", "fahrenheit"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3261,6 +3269,7 @@ SITE_SENSORS = [
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=1,
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3271,6 +3280,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.ENUM,
         options=["off", "on"],
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
@@ -3282,6 +3292,7 @@ SITE_SENSORS = [
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
