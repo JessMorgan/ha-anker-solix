@@ -929,7 +929,7 @@ _A1782_0421 = {
     "a3": {
         BYTES: {
             "04": {
-                NAME: "ac_input_limit_max",  # Max supported charge limit, seems fix
+                NAME: "all_ac_input_limit",  # Max supported charge limit, seems fix
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -946,7 +946,7 @@ _A1782_0421 = {
                 TYPE: DeviceHexDataTypes.sile.value,
             },
             "07": {
-                NAME: "ac_output_mode?",  # Normal (0), Smart (1) - auto-off below 14W
+                NAME: "ac_output_mode",  # Normal (0), Smart (1) - auto-off below 14W
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "08": {
@@ -955,11 +955,11 @@ _A1782_0421 = {
                 LENGTH: 4,
             },
             "12": {
-                NAME: "dc_12v_output_mode?",  # Normal (0), Smart (1) - auto-off below 3W
+                NAME: "dc_12v_output_mode",  # Normal (0), Smart (1) - auto-off below 3W
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "13": {
-                NAME: "device_timeout_minutes?",  # 0 (Never), 30, 60, 120, 240, 360, 720, 1440
+                NAME: "device_timeout_minutes",  # 0 (Never), 30, 60, 120, 240, 360, 720, 1440
                 TYPE: DeviceHexDataTypes.sile.value,
             },
             "15": {
@@ -967,7 +967,7 @@ _A1782_0421 = {
                 TYPE: DeviceHexDataTypes.sile.value,
             },
             "17": {
-                NAME: "display_mode?",  # Low (1), Medium (2), High (3)
+                NAME: "display_mode",  # Low (1), Medium (2), High (3)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "20": {
@@ -975,7 +975,7 @@ _A1782_0421 = {
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "21": {
-                NAME: "display_switch?",  # Off (0), On (1)
+                NAME: "display_switch",  # Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "22": {
@@ -1004,7 +1004,7 @@ _A1782_0421 = {
                 TYPE: DeviceHexDataTypes.sile.value,
             },
             "02": {
-                NAME: "ac_input_power?",  # Input power total charge
+                NAME: "ac_input_power",  # Input power total charge
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         },
@@ -1016,7 +1016,7 @@ _A1782_0421 = {
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "ac_output_power?",  # AC Output power
+                NAME: "ac_output_power",  # AC Output power
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1024,11 +1024,11 @@ _A1782_0421 = {
     "a8": {
         BYTES: {
             "00": {
-                NAME: "dc_output_power_switch?",  # Car Charger Output: Off (0), On (1)
+                NAME: "dc_output_power_switch",  # Car Charger Output: Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "dc_output_power?",  # DC 12V output power when enabled
+                NAME: "dc_output_power",  # DC 12V output power when enabled
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1036,11 +1036,11 @@ _A1782_0421 = {
     "aa": {
         BYTES: {
             "00": {
-                NAME: "usbc_1_status?",  # USB-C 1 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usbc_1_status",  # USB-C 1 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "usbc_1_power?",
+                NAME: "usbc_1_power",
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1048,11 +1048,11 @@ _A1782_0421 = {
     "ab": {
         BYTES: {
             "00": {
-                NAME: "usbc_2_status?",  # USB-C 2 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usbc_2_status",  # USB-C 2 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "usbc_2_power?",
+                NAME: "usbc_2_power",
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1060,11 +1060,11 @@ _A1782_0421 = {
     "ac": {
         BYTES: {
             "00": {
-                NAME: "usbc_3_status?",  # USB-C 3 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usbc_3_status",  # USB-C 3 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "usbc_3_power?",
+                NAME: "usbc_3_power",
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1072,11 +1072,11 @@ _A1782_0421 = {
     "ad": {
         BYTES: {
             "00": {
-                NAME: "usbc_4_status?",  # USB-C 3 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usbc_4_status",  # USB-C 4 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "usbc_4_power?",
+                NAME: "usbc_4_power",
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1084,11 +1084,11 @@ _A1782_0421 = {
     "ae": {
         BYTES: {
             "00": {
-                NAME: "usba_1_status?",  # USB-A 1 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usba_1_status",  # USB-A 1 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "usba_1_power?",
+                NAME: "usba_1_power",
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1096,11 +1096,11 @@ _A1782_0421 = {
     "af": {
         BYTES: {
             "00": {
-                NAME: "usba_2_status?",  # USB-A 1 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usba_2_status",  # USB-A 2 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "usba_2_power?",
+                NAME: "usba_2_power",
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1108,11 +1108,11 @@ _A1782_0421 = {
     "d9": {
         BYTES: {
             "03": {
-                NAME: "max_soc?",  # max_soc: 80, 85, 90, 95, 100 % ?
+                NAME: "max_soc",  # max_soc: 80, 85, 90, 95, 100 % ?
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "04": {
-                NAME: "min_soc?",  # min_soc: 1, 5, 10, 15, 20 % ?
+                NAME: "min_soc",  # min_soc: 1, 5, 10, 15, 20 % ?
                 TYPE: DeviceHexDataTypes.ui.value,
             },
         }
