@@ -5,8 +5,11 @@ from typing import Final
 from .apitypes import DeviceHexDataTypes
 from .mqttcmdmap import (
     BYTES,
+    CMD_AC_30A_INPUT_POWER,
     CMD_AC_CHARGE_LIMIT,
+    CMD_AC_DEFAULT_INPUT_POWER,
     CMD_AC_DC_MODE,
+    CMD_AC_EV_CONVERTER_INPUT_POWER,
     CMD_AC_FAST_CHARGE_SWITCH,
     CMD_AC_OUTPUT_MODE,
     CMD_AC_OUTPUT_SWITCH,
@@ -21,6 +24,7 @@ from .mqttcmdmap import (
     CMD_DEVICE_TIMEOUT_MIN,
     CMD_DISPLAY_MODE,
     CMD_DISPLAY_SWITCH,
+    CMD_DISPLAY_SWITCH_V2,
     CMD_DISPLAY_TIMEOUT_SEC,
     CMD_EV_AUTO_CHARGE_RESTART_SWITCH,
     CMD_EV_AUTO_START_SWITCH,
@@ -34,12 +38,14 @@ from .mqttcmdmap import (
     CMD_EV_MAX_CHARGE_CURRENT,
     CMD_EV_SOLAR_CHARGING,
     CMD_LIGHT_MODE,
+    CMD_LIGHT_MODE_V2,
     CMD_MAIN_BREAKER_LIMIT,
     CMD_MODBUS_SWITCH,
     CMD_PLUG_DELAYED_TOGGLE,
     CMD_PLUG_LOCK_SWITCH,
     CMD_PLUG_SCHEDULE,
     CMD_PORT_MEMORY_SWITCH,
+    CMD_PORT_MEMORY_SWITCH_V2,
     CMD_REALTIME_TRIGGER,
     CMD_SB_3RD_PARTY_PV_SWITCH,
     CMD_SB_AC_INPUT_LIMIT,
@@ -56,6 +62,7 @@ from .mqttcmdmap import (
     CMD_SB_PV_LIMIT,
     CMD_SB_STATUS_CHECK,
     CMD_SB_USAGE_MODE,
+    CMD_SCREEN_BRIGHTNESS_V2,
     CMD_SMART_TOUCH_MODE,
     CMD_SOC_LIMITS_V2,
     CMD_STATUS_REQUEST,
@@ -132,11 +139,11 @@ _A1725_0405 = {
     TOPIC: "param_info",
     "a1": {NAME: "device_pn"},  # Device PN identifier
     "a3": {NAME: "remaining_time_hours", FACTOR: 0.1, SIGNED: False},  # Remaining runtime
-    "a4": {NAME: "usbc_1_power"},  # USB-C1 output power
-    "a5": {NAME: "usbc_2_power"},  # USB-C2 output power
-    "a6": {NAME: "usbc_3_power", SIGNED: True},  # USB-C3 bidirectional power (input when charging, output when discharging)
-    "a8": {NAME: "usba_1_power"},  # USB-A1 output power
-    "a9": {NAME: "usba_2_power"},  # USB-A2 output power
+    "a4": {NAME: "usbc_1_power"},  # USB-C top output power
+    "a5": {NAME: "usbc_2_power"},  # USB-C middle output power
+    "a6": {NAME: "usbc_3_power"},  # USB-C bottom input/output power
+    "a8": {NAME: "usba_1_power"},  # USB-A top output power
+    "a9": {NAME: "usba_2_power"},  # USB-A bottom output power
     "ab": {NAME: "photovoltaic_power"},  # Solar input power (W)
     "ac": {NAME: "dc_input_power_total"},  # Total input power (solar + C3 input when charging)
     "ad": {NAME: "dc_output_power_total"},  # Total USB output power
@@ -1362,18 +1369,18 @@ _A1790_0405 = {
     "a7": {NAME: "usbc_1_power"},
     "a8": {NAME: "usbc_2_power"},
     "a9": {NAME: "usbc_3_power"},
-    "aa": {NAME: "usba_1_power?"},
-    "ab": {NAME: "usba_2_power?"},
-    "ac": {NAME: "dc_12v_output_power_switch?"},
+    "aa": {NAME: "usba_1_power"},
+    "ab": {NAME: "usba_2_power"},
+    "ac": {NAME: "dc_12v_output_power_switch"},
     "ad": {NAME: "main_battery_soc"},  # Main battery SOC?
     "ae": {NAME: "photovoltaic_power"},  # Total solar input
     "af": {NAME: "pv_1_power"},
     "b0": {NAME: "pv_2_power"},
     "b1": {NAME: "bat_charge_power"},  # Total charging (AC + Solar)
     "b2": {NAME: "output_power"},
-    "b4": {NAME: "bat_discharge_power?"},
-    "b5": {NAME: "sw_version?", "values": 1},  # Main firmware version
-    "ba": {NAME: "sw_expansion?", "values": 1},  # Expansion firmware version
+    "b4": {NAME: "bat_discharge_power"},
+    "b5": {NAME: "sw_version", "values": 1},  # Main firmware version
+    "ba": {NAME: "sw_expansion", "values": 1},  # Expansion firmware version
     "bc": {
         NAME: "ac_output_power_switch"
     },  # AC output switch: Disabled (0) or Enabled (1)
@@ -1390,8 +1397,8 @@ _A1790_0405 = {
     "c2": {NAME: "usbc_1_status"},
     "c3": {NAME: "usbc_2_status"},
     "c4": {NAME: "usbc_3_status"},
-    "c5": {NAME: "usba_1_status?"},
-    "c6": {NAME: "usba_2_status?"},
+    "c5": {NAME: "usba_1_status"},
+    "c6": {NAME: "usba_2_status"},
     "c7": {
         NAME: "dc_output_power_switch"
     },  # 12V DC output switch: Disabled (0) or Enabled (1)
@@ -3825,6 +3832,25 @@ _PP_JSON = {
 
 # Following is the consolidated mapping for all device types and messages
 SOLIXMQTTMAP: Final[dict] = {
+    # PPS C200 (A1725/A1727)
+    "A1725": {
+        "0045": CMD_DEVICE_TIMEOUT_MIN,  # Device timeout: 0 (Never), 30, 60, 120, 240, 360, 720, 1440 minutes
+        "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
+        "004c": CMD_DISPLAY_MODE,  # Display brightness: Low (1), Medium (2), High (3)
+        "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
+        "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
+        "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
+        "0405": _A1725_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
+    },
+    "A1727": {
+        "0045": CMD_DEVICE_TIMEOUT_MIN,  # Device timeout: 0 (Never), 30, 60, 120, 240, 360, 720, 1440 minutes
+        "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
+        "004c": CMD_DISPLAY_MODE,  # Display brightness: Low (1), Medium (2), High (3)
+        "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
+        "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
+        "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
+        "0405": _A1725_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
+    },
     # PPS C300 AC
     "A1722": {
         "0044": CMD_AC_CHARGE_LIMIT  # AC Recharge Limit: 100, 200, 300, 330 W
@@ -3922,25 +3948,6 @@ SOLIXMQTTMAP: Final[dict] = {
         "0404": _A1728_0404,  # Interval: Irregular, triggered on app action, no fixed interval
         "0405": _A1728_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
         "0830": _PPS_VERSIONS_0830,  # Interval: Irregular, triggered on app actions, no fixed interval
-    },
-    # PPS C200 (A1725/A1727)
-    "A1725": {
-        "0045": CMD_DEVICE_TIMEOUT_MIN,  # Device timeout: 0 (Never), 30, 60, 120, 240, 360, 720, 1440 minutes
-        "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
-        "004c": CMD_DISPLAY_MODE,  # Display brightness: Low (1), Medium (2), High (3)
-        "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
-        "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
-        "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
-        "0405": _A1725_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
-    },
-    "A1727": {
-        "0045": CMD_DEVICE_TIMEOUT_MIN,  # Device timeout: 0 (Never), 30, 60, 120, 240, 360, 720, 1440 minutes
-        "0046": CMD_DISPLAY_TIMEOUT_SEC,  # Options in seconds: 20, 30, 60, 300, 1800 seconds
-        "004c": CMD_DISPLAY_MODE,  # Display brightness: Low (1), Medium (2), High (3)
-        "0052": CMD_DISPLAY_SWITCH,  # Display switch: Disabled (0) or Enabled (1)
-        "0057": CMD_REALTIME_TRIGGER,  # for regular status messages 0405 etc
-        "0401": _A1725_0401,  # Interval: Irregular, triggered on app/device actions
-        "0405": _A1725_0405,  # Interval: ~3-5 seconds, but only with realtime trigger
     },
     # PPS C1000(X) + B1000 Extension
     "A1761": {
@@ -4268,6 +4275,22 @@ SOLIXMQTTMAP: Final[dict] = {
     "A1782": {
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages
         # Interval: ~3-5 seconds, but only with realtime trigger
+        "0100": CMD_STATUS_REQUEST,  # Status request response (also used for device switch commands)
+        "0101": {
+            # Message type 0101 - Light mode and AC input power limits
+            "a2": CMD_LIGHT_MODE_V2["a2"],  # Light mode
+            "a4": CMD_AC_DEFAULT_INPUT_POWER["a4"],  # Default AC charging power
+            "a8": CMD_AC_30A_INPUT_POWER["a8"],  # 30A port charging power
+            "a9": CMD_AC_EV_CONVERTER_INPUT_POWER["a9"],  # EV converter charging power
+        },  # Light mode - F3000 uses message type 0101
+        "0102": {
+            # Message type 0102 - Port Memory Switch (field a4)
+            "a4": CMD_PORT_MEMORY_SWITCH_V2["a4"],  # Port Memory Switch
+        },  # Port Memory - F3000 uses message type 0102
+        "0103": {
+            # Message type 0103 - Screen Brightness (field a8)
+            "a8": CMD_SCREEN_BRIGHTNESS_V2["a8"],  # Screen Brightness
+        },  # Screen Brightness - F3000 uses message type 0103
         "0421": _A1782_0421,
         "0502": _A1782_0502,
         # Upon request, followed by 0100 status request command
@@ -5194,16 +5217,7 @@ SOLIXMQTTMAP: Final[dict] = {
             SolixMqttCommands.realtime_trigger: {
                 "a2": {
                     NAME: "realtime_trigger",
-                    TYPE: DeviceHexDataTypes.ui.value,
                     VALUE_OPTIONS: {"off": 0, "on": 1},
-                    VALUE_DEFAULT: 1,
-                },
-                "a3": {
-                    NAME: "trigger_timeout_sec",
-                    TYPE: DeviceHexDataTypes.var.value,
-                    VALUE_MIN: 60,
-                    VALUE_MAX: 600,
-                    VALUE_DEFAULT: 300,
                 },
             },
         },

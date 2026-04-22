@@ -82,6 +82,9 @@ class SolixMqttCommands:
     ac_charge_switch: str = "ac_charge_switch"
     ac_fast_charge_switch: str = "ac_fast_charge_switch"
     ac_charge_limit: str = "ac_charge_limit"
+    ac_default_input_power: str = "ac_default_input_power"
+    ac_30a_input_power: str = "ac_30a_input_power"
+    ac_ev_converter_input_power: str = "ac_ev_converter_input_power"
     ac_output_switch: str = "ac_output_switch"
     ac_output_mode_select: str = "ac_output_mode_select"
     ac_output_timeout_seconds: str = "ac_output_timeout_seconds"
@@ -91,6 +94,7 @@ class SolixMqttCommands:
     display_switch: str = "display_switch"
     display_mode_select: str = "display_mode_select"
     display_timeout_seconds: str = "display_timeout_seconds"
+    display_brightness: str = "display_brightness"
     light_switch: str = "light_switch"
     light_mode_select: str = "light_mode_select"
     port_memory_switch: str = "port_memory_switch"
@@ -423,6 +427,100 @@ CMD_DISPLAY_SWITCH = CMD_COMMON | {
         TYPE: DeviceHexDataTypes.ui.value,
         STATE_NAME: "display_switch",
         VALUE_OPTIONS: {"off": 0, "on": 1},
+    },
+}
+
+# Additional command patterns observed in F3000 (A1782)
+# These use CMD_COMMON_V2 with different message types
+
+# F3000 Display switch (Message type 0102)
+CMD_DISPLAY_SWITCH_V2 = CMD_COMMON_V2 | {
+    # Command: PPS display switch setting - F3000 specific version
+    COMMAND_NAME: SolixMqttCommands.display_switch,
+    "a2": {
+        NAME: "set_display_switch",  # Off (0), On (1)
+        TYPE: DeviceHexDataTypes.ui.value,
+        STATE_NAME: "display_switch",
+        VALUE_OPTIONS: {"off": 0, "on": 1},
+    },
+}
+
+# F3000 Light mode (Message type 0101)
+CMD_LIGHT_MODE_V2 = CMD_COMMON_V2 | {
+    # Command: PPS light mode setting - F3000 specific version
+    COMMAND_NAME: SolixMqttCommands.light_mode_select,
+    "a2": {
+        NAME: "set_light_mode",  # Off (0), Low (1), Medium (2), High (3), Blinking (4)
+        TYPE: DeviceHexDataTypes.ui.value,
+        STATE_NAME: "light_mode",
+        VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3, "blinking": 4},
+    },
+}
+
+# F3000 Port Memory Switch (Message type 0102, field a4)
+CMD_PORT_MEMORY_SWITCH_V2 = CMD_COMMON_V2 | {
+    # Command: PPS port memory switch - F3000 specific version
+    # Uses message type 0102 with field a4 instead of a2
+    COMMAND_NAME: SolixMqttCommands.port_memory_switch,
+    "a4": {
+        NAME: "set_port_memory_switch",  # Off (0), On (1)
+        TYPE: DeviceHexDataTypes.ui.value,
+        STATE_NAME: "port_memory_switch",
+        VALUE_OPTIONS: {"off": 0, "on": 1},
+    },
+}
+
+# F3000 Screen Brightness (Message type 0103)
+CMD_SCREEN_BRIGHTNESS_V2 = CMD_COMMON_V2 | {
+    # Command: PPS screen brightness - F3000 specific version
+    # Uses message type 0103 with field a8
+    COMMAND_NAME: SolixMqttCommands.display_brightness,
+    "a8": {
+        NAME: "set_screen_brightness",  # Low (0), Medium (1), High (2)
+        TYPE: DeviceHexDataTypes.ui.value,
+        STATE_NAME: "screen_brightness",
+        VALUE_OPTIONS: {"low": 0, "medium": 1, "high": 2},
+    },
+}
+
+# F3000 AC input power limits (Message type 0101)
+# All three use 3-byte little-endian power values in watts
+CMD_AC_DEFAULT_INPUT_POWER = CMD_COMMON_V2 | {
+    # Command: Set Default AC port charging power limit
+    COMMAND_NAME: SolixMqttCommands.ac_default_input_power,
+    "a4": {
+        NAME: "set_ac_default_input_power",  # 0 - 1200 W, step: 100
+        TYPE: DeviceHexDataTypes.sile.value,
+        STATE_NAME: "ac_default_input_power",
+        VALUE_MIN: 0,
+        VALUE_MAX: 1200,
+        VALUE_STEP: 100,
+    },
+}
+
+CMD_AC_30A_INPUT_POWER = CMD_COMMON_V2 | {
+    # Command: Set 30A port charging power limit
+    COMMAND_NAME: SolixMqttCommands.ac_30a_input_power,
+    "a8": {
+        NAME: "set_ac_30a_input_power",  # 0 - 3400 W, step: 100
+        TYPE: DeviceHexDataTypes.sile.value,
+        STATE_NAME: "ac_30a_input_power",
+        VALUE_MIN: 0,
+        VALUE_MAX: 3400,
+        VALUE_STEP: 100,
+    },
+}
+
+CMD_AC_EV_CONVERTER_INPUT_POWER = CMD_COMMON_V2 | {
+    # Command: Set EV converter port charging power limit
+    COMMAND_NAME: SolixMqttCommands.ac_ev_converter_input_power,
+    "a9": {
+        NAME: "set_ac_ev_converter_input_power",  # 0 - 3100 W, step: 100
+        TYPE: DeviceHexDataTypes.sile.value,
+        STATE_NAME: "ac_ev_converter_input_power",
+        VALUE_MIN: 0,
+        VALUE_MAX: 3100,
+        VALUE_STEP: 100,
     },
 }
 

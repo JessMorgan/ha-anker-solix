@@ -3283,6 +3283,33 @@ SITE_SENSORS = [
         force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
+    # F3000 (A1782) specific sensors - output related
+    AnkerSolixSensorDescription(
+        key="dc_output_power",
+        translation_key="dc_output_power",
+        json_key="dc_output_power",
+        native_unit_of_measurement=UnitOfPower.WATT,
+        device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "pps",
+        mqtt=True,
+    ),
+    
+    AnkerSolixSensorDescription(
+        # F3000 main battery SOC (duplicate for clarity)
+        key="main_battery_soc",
+        translation_key="main_battery_soc",
+        json_key="main_battery_soc",
+        native_unit_of_measurement=PERCENTAGE,
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=0,
+        exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        force_creation_fn=lambda d: d.get("type") == "pps",
+        mqtt=True,
+    ),
     AnkerSolixSensorDescription(
         key="powercooler_battery_soc",
         translation_key="powercooler_battery_soc",
