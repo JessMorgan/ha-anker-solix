@@ -3293,7 +3293,7 @@ SITE_SENSORS = [
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
-        force_creation_fn=lambda d: d.get("type") == "pps",
+        force_creation_fn=lambda d: d.get("type") == "solarbank_pps",
         mqtt=True,
     ),
     
@@ -3307,7 +3307,7 @@ SITE_SENSORS = [
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
-        force_creation_fn=lambda d: d.get("type") == "pps",
+        force_creation_fn=lambda d: d.get("type") == "solarbank_pps",
         mqtt=True,
     ),
     AnkerSolixSensorDescription(
