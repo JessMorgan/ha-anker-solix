@@ -352,7 +352,10 @@ DEVICE_SELECTS = [
         json_key="device_timeout_minutes",
         unit_of_measurement=UnitOfTime.MINUTES,
         options_fn=lambda d, _: ["0", "30", "60", "120", "240", "360", "720", "1440"],
-        exclude_fn=lambda s, d: not ({d.get("type")} - s or d.get("type") == "solarbank_pps"),
+        exclude_fn=lambda s, d: not (
+            {t := d.get("type")} - s
+            and t not in [SolixDeviceType.SOLARBANK_PPS.value]
+        ),
         force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.device_timeout_minutes,
@@ -392,7 +395,10 @@ DEVICE_SELECTS = [
         json_key="display_timeout_seconds",
         unit_of_measurement=UnitOfTime.SECONDS,
         options_fn=lambda d, _: ["10", "30", "60", "120", "300"],
-        exclude_fn=lambda s, d: not ({d.get("type")} - s or d.get("type") == "solarbank_pps"),
+        exclude_fn=lambda s, d: not (
+            {t := d.get("type")} - s
+            and t not in [SolixDeviceType.SOLARBANK_PPS.value]
+        ),
         force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.display_timeout_seconds,
