@@ -180,6 +180,7 @@ DEVICE_SWITCHES = [
         device_class=SwitchDeviceClass.SWITCH,
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.light_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         # Customizable device option for MQTT value overlay
@@ -213,6 +214,7 @@ DEVICE_SWITCHES = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.ac_output_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         key="dc_output_power_switch",
@@ -222,6 +224,7 @@ DEVICE_SWITCHES = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.dc_output_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         key="ac_charge_switch",
@@ -231,6 +234,7 @@ DEVICE_SWITCHES = [
         device_class=SwitchDeviceClass.SWITCH,
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.ac_charge_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         key="ac_fast_charge_switch",
@@ -240,6 +244,7 @@ DEVICE_SWITCHES = [
         device_class=SwitchDeviceClass.SWITCH,
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.ac_fast_charge_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         key="display_switch",
@@ -249,6 +254,7 @@ DEVICE_SWITCHES = [
         device_class=SwitchDeviceClass.SWITCH,
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.display_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         key="port_memory_switch",
@@ -258,6 +264,7 @@ DEVICE_SWITCHES = [
         device_class=SwitchDeviceClass.SWITCH,
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.port_memory_switch,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSwitchDescription(
         key="usbc_1_switch",

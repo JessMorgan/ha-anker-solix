@@ -183,6 +183,7 @@ DEVICE_NUMBERS = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.ac_output_timeout_seconds,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixNumberDescription(
         key="dc_output_timeout",
@@ -193,6 +194,7 @@ DEVICE_NUMBERS = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.dc_output_timeout_seconds,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixNumberDescription(
         key="preset_ac_input_limit",
@@ -203,6 +205,7 @@ DEVICE_NUMBERS = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s and d.get("mqtt_data")),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.ac_charge_limit,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixNumberDescription(
         key="grid_export_limit",

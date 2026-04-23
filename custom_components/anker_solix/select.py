@@ -413,6 +413,7 @@ DEVICE_SELECTS = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.ac_output_mode_select,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSelectDescription(
         key="dc_12v_output_mode",
@@ -422,6 +423,7 @@ DEVICE_SELECTS = [
         exclude_fn=lambda s, d: not ({d.get("type")} - s),
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.dc_12v_output_mode_select,
+        force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
     ),
     AnkerSolixSelectDescription(
         key="min_soc",
