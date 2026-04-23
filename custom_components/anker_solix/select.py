@@ -390,7 +390,7 @@ DEVICE_SELECTS = [
         translation_key="display_timeout",
         json_key="display_timeout_seconds",
         unit_of_measurement=UnitOfTime.SECONDS,
-        options_fn=lambda d, _: ["10", "30", "60", "120", "300"],
+        options_fn=lambda d, _: ["20", "30", "60", "300", "1800"],
         exclude_fn=lambda s, _: not ({SolixDeviceType.SOLARBANK_PPS.value} - s),
         force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
         mqtt=True,
@@ -901,6 +901,10 @@ class AnkerSolixSelect(CoordinatorEntity, SelectEntity):
             # Get MQTT device options for supported control
             if self._attribute_name == "ev_charger_mode":
                 self._attr_options = mdev.ev_charger_mode_options()
+                if not self._attr_options:
+                    self._attr_options = self.entity_description.options_fn(
+                        data, self.entity_description.json_key
+                    )
             else:
                 # get options from MQTT device description
                 self._attr_options = list(
@@ -909,6 +913,10 @@ class AnkerSolixSelect(CoordinatorEntity, SelectEntity):
                         parm=self.entity_description.mqtt_cmd_parm,
                     ).keys()
                 )
+                if not self._attr_options:
+                    self._attr_options = self.entity_description.options_fn(
+                        data, self.entity_description.json_key
+                    )
             number_sort = True
         # ensure numbered sort also for strings
         if number_sort and self._attr_options:

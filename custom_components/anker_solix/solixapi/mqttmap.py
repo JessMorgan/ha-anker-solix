@@ -4100,10 +4100,10 @@ SOLIXMQTTMAP: Final[dict] = {
             SolixMqttCommands.display_timeout_seconds: CMD_COMMON_V2
             | {
                 "a4": {
-                    NAME: "set_display_timeout_sec",  # 0 (Never), 10, 20, 30, 60, 300, 1800
+                    NAME: "set_display_timeout_sec",
                     TYPE: DeviceHexDataTypes.sile.value,
                     STATE_NAME: "display_timeout_seconds",
-                    VALUE_OPTIONS: [0, 10, 20, 30, 60, 300, 1800],
+                    VALUE_OPTIONS: [20, 30, 60, 300, 1800],
                 },
             },
             SolixMqttCommands.device_timeout_minutes: CMD_COMMON_V2
