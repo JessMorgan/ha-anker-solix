@@ -1021,6 +1021,7 @@ _A1782_0421 = {
             "00": {
                 NAME: "ac_output_power_switch",  # Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
+                COMMAND_NAME: SolixMqttCommands.ac_output_switch,
             },
             "01": {
                 NAME: "ac_output_power",  # AC Output power
@@ -1033,6 +1034,7 @@ _A1782_0421 = {
             "00": {
                 NAME: "dc_output_power_switch",  # Car Charger Output: Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
+                COMMAND_NAME: SolixMqttCommands.dc_output_switch,
             },
             "01": {
                 NAME: "dc_output_power",  # DC 12V output power when enabled
