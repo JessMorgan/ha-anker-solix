@@ -346,16 +346,12 @@ DEVICE_SELECTS = [
         mqtt_cmd=SolixMqttCommands.sb_device_timeout,
     ),
     AnkerSolixSelectDescription(
-        # PPS timeout
         key="device_timeout",
         translation_key="device_timeout",
         json_key="device_timeout_minutes",
         unit_of_measurement=UnitOfTime.MINUTES,
         options_fn=lambda d, _: ["0", "30", "60", "120", "240", "360", "720", "1440"],
-        exclude_fn=lambda s, d: not (
-            {t := d.get("type")} - s
-            and t not in [SolixDeviceType.SOLARBANK_PPS.value]
-        ),
+        exclude_fn=lambda s, _: not ({SolixDeviceType.SOLARBANK_PPS.value} - s),
         force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.device_timeout_minutes,
@@ -395,10 +391,7 @@ DEVICE_SELECTS = [
         json_key="display_timeout_seconds",
         unit_of_measurement=UnitOfTime.SECONDS,
         options_fn=lambda d, _: ["10", "30", "60", "120", "300"],
-        exclude_fn=lambda s, d: not (
-            {t := d.get("type")} - s
-            and t not in [SolixDeviceType.SOLARBANK_PPS.value]
-        ),
+        exclude_fn=lambda s, _: not ({SolixDeviceType.SOLARBANK_PPS.value} - s),
         force_creation_fn=lambda d, jk: d.get("type") == "solarbank_pps",
         mqtt=True,
         mqtt_cmd=SolixMqttCommands.display_timeout_seconds,

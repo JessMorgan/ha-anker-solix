@@ -3291,10 +3291,7 @@ AnkerSolixSensorDescription(
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
-        exclude_fn=lambda s, d: not (
-            {t := d.get("type")} - s
-            and t not in [SolixDeviceType.SOLARBANK_PPS.value]
-        ),
+        exclude_fn=lambda s, _: not ({SolixDeviceType.SOLARBANK_PPS.value} - s),
         force_creation_fn=lambda d: d.get("type") == "solarbank_pps",
         mqtt=True,
     ),
@@ -3307,10 +3304,7 @@ AnkerSolixSensorDescription(
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
-        exclude_fn=lambda s, d: not (
-            {t := d.get("type")} - s
-            and t not in [SolixDeviceType.SOLARBANK_PPS.value]
-        ),
+        exclude_fn=lambda s, _: not ({SolixDeviceType.SOLARBANK_PPS.value} - s),
         force_creation_fn=lambda d: d.get("type") == "solarbank_pps",
         mqtt=True,
     ),
