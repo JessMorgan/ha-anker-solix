@@ -3283,7 +3283,7 @@ SITE_SENSORS = [
         force_creation_fn=lambda d: d.get("type") == "powercooler",
         mqtt=True,
     ),
-    # F3000 (A1782) specific sensors - output related
+# F3000 (A1782) specific sensors - output related
     AnkerSolixSensorDescription(
         key="dc_output_power",
         translation_key="dc_output_power",
@@ -3292,11 +3292,11 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
-        exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        exclude_fn=lambda s, d: not ({d.get("type")} - s or d.get("type") == "solarbank_pps"),
         force_creation_fn=lambda d: d.get("type") == "solarbank_pps",
         mqtt=True,
     ),
-    
+
     AnkerSolixSensorDescription(
         # F3000 main battery SOC (duplicate for clarity)
         key="main_battery_soc",
@@ -3306,7 +3306,7 @@ SITE_SENSORS = [
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
-        exclude_fn=lambda s, d: not ({d.get("type")} - s),
+        exclude_fn=lambda s, d: not ({d.get("type")} - s or d.get("type") == "solarbank_pps"),
         force_creation_fn=lambda d: d.get("type") == "solarbank_pps",
         mqtt=True,
     ),
