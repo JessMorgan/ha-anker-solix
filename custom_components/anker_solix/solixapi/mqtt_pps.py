@@ -66,6 +66,9 @@ FEATURES = {
     SolixMqttCommands.light_mode_select: MODELS,
     SolixMqttCommands.port_memory_switch: MODELS,
     SolixMqttCommands.soc_limits: MODELS,
+    SolixMqttCommands.ac_default_input_power: ["A1782"],
+    SolixMqttCommands.ac_30a_input_power: ["A1782"],
+    SolixMqttCommands.ac_ev_converter_input_power: ["A1782"],
 }
 
 
