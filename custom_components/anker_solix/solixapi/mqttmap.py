@@ -5,8 +5,11 @@ from typing import Final
 from .apitypes import DeviceHexDataTypes
 from .mqttcmdmap import (
     BYTES,
+    CMD_AC_30A_INPUT_POWER,
     CMD_AC_CHARGE_LIMIT,
+    CMD_AC_DEFAULT_INPUT_POWER,
     CMD_AC_DC_MODE,
+    CMD_AC_EV_CONVERTER_INPUT_POWER,
     CMD_AC_FAST_CHARGE_SWITCH,
     CMD_AC_OUTPUT_MODE,
     CMD_AC_OUTPUT_SWITCH,
@@ -21,6 +24,7 @@ from .mqttcmdmap import (
     CMD_DEVICE_TIMEOUT_MIN,
     CMD_DISPLAY_MODE,
     CMD_DISPLAY_SWITCH,
+    CMD_DISPLAY_SWITCH_V2,
     CMD_DISPLAY_TIMEOUT_SEC,
     CMD_EV_AUTO_CHARGE_RESTART_SWITCH,
     CMD_EV_AUTO_START_SWITCH,
@@ -34,6 +38,7 @@ from .mqttcmdmap import (
     CMD_EV_MAX_CHARGE_CURRENT,
     CMD_EV_SOLAR_CHARGING,
     CMD_LIGHT_MODE,
+    CMD_LIGHT_MODE_V2,
     CMD_MAIN_BREAKER_LIMIT,
     CMD_MODBUS_SWITCH,
     CMD_PLUG_DELAYED_TOGGLE,
@@ -4168,6 +4173,30 @@ SOLIXMQTTMAP: Final[dict] = {
     # Solarbank PPS F3000
     "A1782": {
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages
+        "0100": {
+            COMMAND_LIST: [
+                SolixMqttCommands.device_switch,
+            ],
+            SolixMqttCommands.device_switch: CMD_DEVICE_SWITCH,
+        },
+        "0101": {
+            COMMAND_LIST: [
+                SolixMqttCommands.light_mode_select,
+                SolixMqttCommands.ac_default_input_power,
+                SolixMqttCommands.ac_30a_input_power,
+                SolixMqttCommands.ac_ev_converter_input_power,
+            ],
+            SolixMqttCommands.light_mode_select: CMD_LIGHT_MODE_V2,
+            SolixMqttCommands.ac_default_input_power: CMD_AC_DEFAULT_INPUT_POWER,
+            SolixMqttCommands.ac_30a_input_power: CMD_AC_30A_INPUT_POWER,
+            SolixMqttCommands.ac_ev_converter_input_power: CMD_AC_EV_CONVERTER_INPUT_POWER,
+        },
+        "0102": {
+            COMMAND_LIST: [
+                SolixMqttCommands.display_switch,
+            ],
+            SolixMqttCommands.display_switch: CMD_DISPLAY_SWITCH_V2,
+        },
         # Interval: ~3-5 seconds, but only with realtime trigger
         "0421": _A1782_0421,
         "0502": _A1782_0502,

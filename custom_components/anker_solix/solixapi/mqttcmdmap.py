@@ -144,6 +144,9 @@ class SolixMqttCommands:
     )
     ev_solar_charging: str = "ev_solar_charging"  # complex command with switches
     ac_dc_mode_select: str = "ac_dc_mode_select"
+    ac_default_input_power: str = "ac_default_input_power"
+    ac_30a_input_power: str = "ac_30a_input_power"
+    ac_ev_converter_input_power: str = "ac_ev_converter_input_power"
 
     def asdict(self) -> dict:
         """Return a dictionary representation of the class fields."""
@@ -1353,5 +1356,61 @@ CMD_AC_DC_MODE = CMD_COMMON | {
         TYPE: DeviceHexDataTypes.ui.value,
         STATE_NAME: "ac_dc_mode",
         VALUE_OPTIONS: {"dc": 1, "ac": 3},
+    },
+}
+
+CMD_DISPLAY_SWITCH_V2 = CMD_COMMON_V2 | {
+    COMMAND_NAME: SolixMqttCommands.display_switch,
+    "a2": {
+        NAME: "set_display_switch",
+        TYPE: DeviceHexDataTypes.ui.value,
+        STATE_NAME: "display_switch",
+        VALUE_OPTIONS: {"off": 0, "on": 1},
+    },
+}
+
+CMD_LIGHT_MODE_V2 = CMD_COMMON_V2 | {
+    COMMAND_NAME: SolixMqttCommands.light_mode_select,
+    "a2": {
+        NAME: "set_light_mode",
+        TYPE: DeviceHexDataTypes.ui.value,
+        STATE_NAME: "light_mode",
+        VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3, "blinking": 4},
+    },
+}
+
+CMD_AC_DEFAULT_INPUT_POWER = CMD_COMMON_V2 | {
+    COMMAND_NAME: SolixMqttCommands.ac_default_input_power,
+    "a4": {
+        NAME: "set_ac_default_input_power",
+        TYPE: DeviceHexDataTypes.sile.value,
+        STATE_NAME: "ac_default_input_power",
+        VALUE_MIN: 0,
+        VALUE_MAX: 1200,
+        VALUE_STEP: 100,
+    },
+}
+
+CMD_AC_30A_INPUT_POWER = CMD_COMMON_V2 | {
+    COMMAND_NAME: SolixMqttCommands.ac_30a_input_power,
+    "a8": {
+        NAME: "set_ac_30a_input_power",
+        TYPE: DeviceHexDataTypes.sile.value,
+        STATE_NAME: "ac_30a_input_power",
+        VALUE_MIN: 0,
+        VALUE_MAX: 3400,
+        VALUE_STEP: 100,
+    },
+}
+
+CMD_AC_EV_CONVERTER_INPUT_POWER = CMD_COMMON_V2 | {
+    COMMAND_NAME: SolixMqttCommands.ac_ev_converter_input_power,
+    "a9": {
+        NAME: "set_ac_ev_converter_input_power",
+        TYPE: DeviceHexDataTypes.sile.value,
+        STATE_NAME: "ac_ev_converter_input_power",
+        VALUE_MIN: 0,
+        VALUE_MAX: 3100,
+        VALUE_STEP: 100,
     },
 }
