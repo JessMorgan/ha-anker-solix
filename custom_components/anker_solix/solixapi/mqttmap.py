@@ -854,7 +854,7 @@ _A1782_0421 = {
     "a3": {
         BYTES: {
             "04": {
-                NAME: "ac_input_limit_max",  # Max supported charge limit, seems fix
+                NAME: "ac_input_limit_max",  # Max supported charge limit, possibly fixed
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -867,7 +867,7 @@ _A1782_0421 = {
                 LENGTH: 4,
             },
             "04": {
-                NAME: "ac_input_limit",  # AC charge limit: 100-1200 W, step: 100
+                NAME: "ac_input_limit",  # AC charge limit: 200-1800 W, step: 100
                 TYPE: DeviceHexDataTypes.sile.value,
             },
             "07": {
@@ -1059,238 +1059,6 @@ _A1782_0421 = {
         }
     },
     "fd": {NAME: "unknown_fd_timestamp"},
-    "fe": {NAME: "msg_timestamp"},
-}
-
-_A1782_0502 = {
-    # F3000 state info with aggregated energies
-    TOPIC: "state_info",
-    # "a2": {
-    #     BYTES: {
-    #         "00": {
-    #             NAME: "energy_a2_00",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "02": {
-    #             NAME: "energy_a2_02",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "04": {
-    #             NAME: "energy_a2_04",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "06": {
-    #             NAME: "energy_a2_06",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "08": {
-    #             NAME: "energy_a2_08",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "10": {
-    #             NAME: "energy_a2_10",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "12": {
-    #             NAME: "energy_a2_12",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "14": {
-    #             NAME: "energy_a2_14",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "16": {
-    #             NAME: "energy_a2_16",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "18": {
-    #             NAME: "energy_a2_18",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #     }
-    # },
-    # "a3": {
-    #     BYTES: {
-    #         "00": {
-    #             NAME: "energy_a3_00",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "02": {
-    #             NAME: "energy_a3_02",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "04": {
-    #             NAME: "energy_a3_04",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "06": {
-    #             NAME: "energy_a3_06",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "08": {
-    #             NAME: "energy_a3_08",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "10": {
-    #             NAME: "energy_a3_10",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #     }
-    # },
-    # "a4": {
-    #     BYTES: {
-    #         "00": {
-    #             NAME: "energy_a4_00",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "02": {
-    #             NAME: "energy_a4_02",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "04": {
-    #             NAME: "energy_a4_04",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "06": {
-    #             NAME: "energy_a4_06",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "08": {
-    #             NAME: "energy_a4_08",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "10": {
-    #             NAME: "energy_a4_10",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "12": {
-    #             NAME: "energy_a4_12",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #     }
-    # },
-    # "a5": {
-    #     BYTES: {
-    #         "00": {
-    #             NAME: "energy_a5_00",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "02": {
-    #             NAME: "energy_a5_02",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "04": {
-    #             NAME: "energy_a5_04",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "06": {
-    #             NAME: "energy_a5_06",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "08": {
-    #             NAME: "energy_a5_08",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "10": {
-    #             NAME: "energy_a5_10",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "12": {
-    #             NAME: "energy_a5_12",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "14": {
-    #             NAME: "energy_a5_14",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "16": {
-    #             NAME: "energy_a5_16",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #     }
-    # },
-    # "a6": {
-    #     BYTES: {
-    #         "00": {
-    #             NAME: "energy_a6_00",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "02": {
-    #             NAME: "energy_a6_02",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "04": {
-    #             NAME: "energy_a6_04",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "06": {
-    #             NAME: "energy_a6_06",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "08": {
-    #             NAME: "energy_a6_08",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "10": {
-    #             NAME: "energy_a6_10",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "12": {
-    #             NAME: "energy_a6_12",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "14": {
-    #             NAME: "energy_a6_14",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #         "16": {
-    #             NAME: "energy_a6_16",
-    #             TYPE: DeviceHexDataTypes.sile.value,
-    #             SIGNED: False,
-    #         },
-    #     }
-    # },
-    "fd": {NAME: "local_timestamp"},
     "fe": {NAME: "msg_timestamp"},
 }
 
@@ -4220,7 +3988,7 @@ SOLIXMQTTMAP: Final[dict] = {
             SolixMqttCommands.ac_charge_limit: CMD_COMMON_V2
             | {
                 "a4": {
-                    NAME: "set_ac_input_limit",  # in W; min: 100, max: 1200, step: 100
+                    NAME: "set_ac_input_limit",  # in W; min: 200, max: 1800, step: 100
                     TYPE: DeviceHexDataTypes.sile.value,
                     STATE_NAME: "ac_input_limit",
                     VALUE_MIN: 200,
@@ -4347,7 +4115,6 @@ SOLIXMQTTMAP: Final[dict] = {
         },
         # Interval: ~3-5 seconds, but only with realtime trigger
         "0421": _A1782_0421,
-        "0502": _A1782_0502,
         # Upon request, followed by 0100 status request command
         "0900": _A1782_0421,  # Same content as 0421
     },
