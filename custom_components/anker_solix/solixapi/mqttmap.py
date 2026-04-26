@@ -1062,6 +1062,44 @@ _A1782_0421 = {
             },
         }
     },
+    "c0": {
+        BYTES: {
+            # Expansion battery 1: APC23031F2xxxxxxxx
+            # Embedded: [01][temp_hi][temp_lo][soc_hi][soc_lo]
+            "01": {
+                NAME: "exp_1_sn",
+                TYPE: DeviceHexDataTypes.str.value,
+            },
+            "23": {
+                NAME: "exp_1_temperature",  # Temperature in °C (signed)
+                TYPE: DeviceHexDataTypes.ui.value,
+                SIGNED: True,
+            },
+            "25": {
+                NAME: "exp_1_soc",  # State of charge 0-100%
+                TYPE: DeviceHexDataTypes.ui.value,
+            },
+        }
+    },
+    "c1": {
+        BYTES: {
+            # Expansion battery 2: APC23031F1xxxxxxxx
+            # Embedded: [01][temp_hi][temp_lo][soc_hi][soc_lo]
+            "01": {
+                NAME: "exp_2_sn",
+                TYPE: DeviceHexDataTypes.str.value,
+            },
+            "23": {
+                NAME: "exp_2_temperature",  # Temperature in °C (signed)
+                TYPE: DeviceHexDataTypes.ui.value,
+                SIGNED: True,
+            },
+            "25": {
+                NAME: "exp_2_soc",  # State of charge 0-100%
+                TYPE: DeviceHexDataTypes.ui.value,
+            },
+        }
+    },
     "d9": {
         BYTES: {
             "03": {
