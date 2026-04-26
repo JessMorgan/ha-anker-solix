@@ -4184,13 +4184,6 @@ SOLIXMQTTMAP: Final[dict] = {
     },
     # Solarbank PPS F3000
     "A1782": {
-        "004f": CMD_LIGHT_MODE  # LED mode: Off (0), Low (1), Medium (2), High (3)
-        | {
-            "a2": {
-                **CMD_LIGHT_MODE["a2"],
-                VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
-            },
-        },
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages
         "0101": {
             # AC command group
@@ -4285,6 +4278,7 @@ SOLIXMQTTMAP: Final[dict] = {
                 SolixMqttCommands.display_mode_select,  # field a3
                 SolixMqttCommands.display_timeout_seconds,  # field a4
                 SolixMqttCommands.device_timeout_minutes,  # field a6
+                SolixMqttCommands.light_mode_select,  # field a7
                 SolixMqttCommands.port_memory_switch,  # field a8
                 SolixMqttCommands.soc_limits,  # field aa, ab
             ],
@@ -4324,6 +4318,15 @@ SOLIXMQTTMAP: Final[dict] = {
                     VALUE_OPTIONS: [0, 30, 60, 120, 240, 360, 720, 1440],
                 },
             },
+            SolixMqttCommands.light_mode_select: CMD_COMMON_V2
+            | {
+                "a7": {
+                    NAME: "set_light_mode",  # Off (0), Low (1), Medium (2), High (3)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "light_mode",
+                    VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
+                },
+            },
             SolixMqttCommands.port_memory_switch: CMD_COMMON_V2
             | {
                 "a8": {
@@ -4338,30 +4341,6 @@ SOLIXMQTTMAP: Final[dict] = {
             # aa = max_soc: 80, 85, 90, 95, 100 %
             # ab = min_soc: 1, 5, 10, 15, 20 %
         },
-#        "0100": {
-#            COMMAND_LIST: [
-#                SolixMqttCommands.device_switch,
-#            ],
-#            SolixMqttCommands.device_switch: CMD_DEVICE_SWITCH,
-#        },
-#        "0101": {
-#            COMMAND_LIST: [
-#                SolixMqttCommands.light_mode_select,
-#                SolixMqttCommands.ac_default_input_power,
-#                SolixMqttCommands.ac_30a_input_power,
-#                SolixMqttCommands.ac_ev_converter_input_power,
-#            ],
-#            SolixMqttCommands.light_mode_select: CMD_LIGHT_MODE_V2,
-#            SolixMqttCommands.ac_default_input_power: CMD_AC_DEFAULT_INPUT_POWER,
-#            SolixMqttCommands.ac_30a_input_power: CMD_AC_30A_INPUT_POWER,
-#            SolixMqttCommands.ac_ev_converter_input_power: CMD_AC_EV_CONVERTER_INPUT_POWER,
-#        },
-#        "0102": {
-#            COMMAND_LIST: [
-#                SolixMqttCommands.display_switch,
-#            ],
-#            SolixMqttCommands.display_switch: CMD_DISPLAY_SWITCH_V2,
-#        },
         # Interval: ~3-5 seconds, but only with realtime trigger
         "0421": _A1782_0421,
         "0502": _A1782_0502,
