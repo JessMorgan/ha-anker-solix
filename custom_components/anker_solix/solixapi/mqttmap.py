@@ -895,10 +895,6 @@ _A1782_0421 = {
                 NAME: "display_mode",  # Low (1), Medium (2), High (3)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
-            "20": {
-                NAME: "ac_fast_charge_switch",  # Ultrafast Charge switch: Disabled (0) or Enabled (1)
-                TYPE: DeviceHexDataTypes.ui.value,
-            },
             "21": {
                 NAME: "display_switch",  # Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
@@ -4188,6 +4184,13 @@ SOLIXMQTTMAP: Final[dict] = {
     },
     # Solarbank PPS F3000
     "A1782": {
+        "004f": CMD_LIGHT_MODE  # LED mode: Off (0), Low (1), Medium (2), High (3)
+        | {
+            "a2": {
+                **CMD_LIGHT_MODE["a2"],
+                VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
+            },
+        },
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages
         "0101": {
             # AC command group
@@ -4223,8 +4226,8 @@ SOLIXMQTTMAP: Final[dict] = {
                     NAME: "set_ac_input_limit",  # in W; min: 100, max: 1200, step: 100
                     TYPE: DeviceHexDataTypes.sile.value,
                     STATE_NAME: "ac_input_limit",
-                    VALUE_MIN: 100,
-                    VALUE_MAX: 1200,
+                    VALUE_MIN: 200,
+                    VALUE_MAX: 1800,
                     VALUE_STEP: 100,
                 },
             },
