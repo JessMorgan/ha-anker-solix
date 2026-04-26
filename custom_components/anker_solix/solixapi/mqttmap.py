@@ -920,6 +920,10 @@ _A1782_0421 = {
                 NAME: "battery_soc",
                 TYPE: DeviceHexDataTypes.ui.value,
             },
+            "03": {
+                NAME: "battery_soh",
+                TYPE: DeviceHexDataTypes.ui.value,
+            },
         }
     },
     "a6": {
@@ -949,11 +953,11 @@ _A1782_0421 = {
     "a8": {
         BYTES: {
             "00": {
-                NAME: "dc_output_power_switch",  # Car Charger Output: Off (0), On (1)
+                NAME: "dc_input_power_switch",  # Car Charger Output: Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
-                NAME: "dc_output_power",  # DC 12V output power when enabled
+                NAME: "dc_input_power",  # DC 12V output power when enabled
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -1026,6 +1030,18 @@ _A1782_0421 = {
             },
             "01": {
                 NAME: "usba_2_power",
+                TYPE: DeviceHexDataTypes.sile.value,
+            },
+        }
+    },
+    "b2": {
+        BYTES: {
+            "00": {
+                NAME: "dc_output_power_switch",  # Car Charger Output: Off (0), On (1)
+                TYPE: DeviceHexDataTypes.ui.value,
+            },
+            "01": {
+                NAME: "dc_output_power",  # DC 12V output power when enabled
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -4173,30 +4189,176 @@ SOLIXMQTTMAP: Final[dict] = {
     # Solarbank PPS F3000
     "A1782": {
         "0057": CMD_REALTIME_TRIGGER,  # for regular status messages
-        "0100": {
-            COMMAND_LIST: [
-                SolixMqttCommands.device_switch,
-            ],
-            SolixMqttCommands.device_switch: CMD_DEVICE_SWITCH,
-        },
         "0101": {
+            # AC command group
             COMMAND_LIST: [
-                SolixMqttCommands.light_mode_select,
-                SolixMqttCommands.ac_default_input_power,
-                SolixMqttCommands.ac_30a_input_power,
-                SolixMqttCommands.ac_ev_converter_input_power,
+                SolixMqttCommands.ac_output_switch,  # field a2
+                SolixMqttCommands.ac_output_timeout_seconds,  # field a3
+                SolixMqttCommands.ac_charge_limit,  # field a4
+                SolixMqttCommands.ac_output_mode_select,  # field a6
             ],
-            SolixMqttCommands.light_mode_select: CMD_LIGHT_MODE_V2,
-            SolixMqttCommands.ac_default_input_power: CMD_AC_DEFAULT_INPUT_POWER,
-            SolixMqttCommands.ac_30a_input_power: CMD_AC_30A_INPUT_POWER,
-            SolixMqttCommands.ac_ev_converter_input_power: CMD_AC_EV_CONVERTER_INPUT_POWER,
+            SolixMqttCommands.ac_output_switch: CMD_COMMON_V2
+            | {
+                "a2": {
+                    NAME: "set_ac_output_switch",  # Disable (0) | Enable (1)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "ac_output_power_switch",
+                    VALUE_OPTIONS: {"off": 0, "on": 1},
+                },
+            },
+            SolixMqttCommands.ac_output_timeout_seconds: CMD_COMMON_V2
+            | {
+                "a3": {
+                    NAME: "set_ac_output_timeout_seconds",  # Timeout seconds, custom range: 0-86400, step 300
+                    TYPE: DeviceHexDataTypes.var.value,
+                    STATE_NAME: "ac_output_timeout_seconds",
+                    VALUE_MIN: 0,
+                    VALUE_MAX: 86400,
+                    VALUE_STEP: 300,
+                },
+            },
+            SolixMqttCommands.ac_charge_limit: CMD_COMMON_V2
+            | {
+                "a4": {
+                    NAME: "set_ac_input_limit",  # in W; min: 100, max: 1200, step: 100
+                    TYPE: DeviceHexDataTypes.sile.value,
+                    STATE_NAME: "ac_input_limit",
+                    VALUE_MIN: 100,
+                    VALUE_MAX: 1200,
+                    VALUE_STEP: 100,
+                },
+            },
+            SolixMqttCommands.ac_output_mode_select: CMD_COMMON_V2
+            | {
+                "a6": {
+                    NAME: "set_ac_output_mode",  # Normal (0), Smart (1)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "ac_output_mode",
+                    VALUE_OPTIONS: {"normal": 0, "smart": 1},
+                },
+            },
         },
         "0102": {
+            # DC command group
             COMMAND_LIST: [
-                SolixMqttCommands.display_switch,
+                SolixMqttCommands.dc_output_switch,  # field a2
+                SolixMqttCommands.dc_output_timeout_seconds,  # field a3
+                SolixMqttCommands.dc_12v_output_mode_select,  # field a4
             ],
-            SolixMqttCommands.display_switch: CMD_DISPLAY_SWITCH_V2,
+            SolixMqttCommands.dc_output_switch: CMD_COMMON_V2
+            | {
+                "a2": {
+                    NAME: "set_dc_output_switch",  # Disable (0) | Enable (1)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "dc_output_power_switch",
+                    VALUE_OPTIONS: {"off": 0, "on": 1},
+                },
+            },
+            SolixMqttCommands.dc_output_timeout_seconds: CMD_COMMON_V2
+            | {
+                "a3": {
+                    NAME: "set_dc_output_timeout_seconds",  # Timeout seconds, custom range: 0-86400, step 300
+                    TYPE: DeviceHexDataTypes.var.value,
+                    STATE_NAME: "dc_output_timeout_seconds",
+                    VALUE_MIN: 0,
+                    VALUE_MAX: 86400,
+                    VALUE_STEP: 300,
+                },
+            },
+            SolixMqttCommands.dc_12v_output_mode_select: CMD_COMMON_V2
+            | {
+                "a4": {
+                    NAME: "set_dc_12v_output_mode",  # Normal (0), Smart (0)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "dc_12v_output_mode",
+                    VALUE_OPTIONS: {"normal": 0, "smart": 1},
+                },
+            },
         },
+        "0103": {
+            # Other command group
+            COMMAND_LIST: [
+                SolixMqttCommands.display_switch,  # field a2
+                SolixMqttCommands.display_mode_select,  # field a3
+                SolixMqttCommands.display_timeout_seconds,  # field a4
+                SolixMqttCommands.device_timeout_minutes,  # field a6
+                SolixMqttCommands.port_memory_switch,  # field a8
+                SolixMqttCommands.soc_limits,  # field aa, ab
+            ],
+            SolixMqttCommands.display_switch: CMD_COMMON_V2
+            | {
+                "a2": {
+                    NAME: "set_display_switch",  # Off (0), On (1)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "display_switch",
+                    VALUE_OPTIONS: {"off": 0, "on": 1},
+                },
+            },
+            SolixMqttCommands.display_mode_select: CMD_COMMON_V2
+            | {
+                "a3": {
+                    NAME: "set_display_mode",  # Low (1), Medium (2), High (3)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "display_mode",
+                    VALUE_OPTIONS: {"low": 1, "medium": 2, "high": 3},
+                },
+            },
+            SolixMqttCommands.display_timeout_seconds: CMD_COMMON_V2
+            | {
+                "a4": {
+                    NAME: "set_display_timeout_sec",  # 0 (Never), 10, 20, 30, 60, 300, 1800
+                    TYPE: DeviceHexDataTypes.sile.value,
+                    STATE_NAME: "display_timeout_seconds",
+                    VALUE_OPTIONS: [0, 10, 20, 30, 60, 300, 1800],
+                },
+            },
+            SolixMqttCommands.device_timeout_minutes: CMD_COMMON_V2
+            | {
+                "a6": {
+                    NAME: "set_device_timeout_min",  # 0 (Never), 30, 60, 120, 240, 360, 720, 1440
+                    TYPE: DeviceHexDataTypes.sile.value,
+                    STATE_NAME: "device_timeout_minutes",
+                    VALUE_OPTIONS: [0, 30, 60, 120, 240, 360, 720, 1440],
+                },
+            },
+            SolixMqttCommands.port_memory_switch: CMD_COMMON_V2
+            | {
+                "a8": {
+                    NAME: "set_port_memory_switch",  # Off (0), On (1)
+                    TYPE: DeviceHexDataTypes.ui.value,
+                    STATE_NAME: "port_memory_switch",
+                    VALUE_OPTIONS: {"off": 0, "on": 1},
+                },
+            },
+            SolixMqttCommands.soc_limits: CMD_SOC_LIMITS_V2,
+            # Contains fields aa ab for the limits
+            # aa = max_soc: 80, 85, 90, 95, 100 %
+            # ab = min_soc: 1, 5, 10, 15, 20 %
+        },
+#        "0100": {
+#            COMMAND_LIST: [
+#                SolixMqttCommands.device_switch,
+#            ],
+#            SolixMqttCommands.device_switch: CMD_DEVICE_SWITCH,
+#        },
+#        "0101": {
+#            COMMAND_LIST: [
+#                SolixMqttCommands.light_mode_select,
+#                SolixMqttCommands.ac_default_input_power,
+#                SolixMqttCommands.ac_30a_input_power,
+#                SolixMqttCommands.ac_ev_converter_input_power,
+#            ],
+#            SolixMqttCommands.light_mode_select: CMD_LIGHT_MODE_V2,
+#            SolixMqttCommands.ac_default_input_power: CMD_AC_DEFAULT_INPUT_POWER,
+#            SolixMqttCommands.ac_30a_input_power: CMD_AC_30A_INPUT_POWER,
+#            SolixMqttCommands.ac_ev_converter_input_power: CMD_AC_EV_CONVERTER_INPUT_POWER,
+#        },
+#        "0102": {
+#            COMMAND_LIST: [
+#                SolixMqttCommands.display_switch,
+#            ],
+#            SolixMqttCommands.display_switch: CMD_DISPLAY_SWITCH_V2,
+#        },
         # Interval: ~3-5 seconds, but only with realtime trigger
         "0421": _A1782_0421,
         "0502": _A1782_0502,
