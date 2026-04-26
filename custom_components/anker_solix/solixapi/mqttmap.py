@@ -836,19 +836,6 @@ _A1780_0408 = {
     "ac": {NAME: "main_battery_soc"},  # in %
 }
 
-_A1782_0401 = {
-    # F3000 state info
-    TOPIC: "state_info",
-#    "a2": {NAME: "dc_output_power_switch"},  # Off (0), On (1)
-#    "a3": {NAME: "ac_output_power_switch"},  # Off (0), On (1)
-#    "a4": {NAME: "dc_output_mode"},  # Normal (0), Smart (1)
-    "a5": {
-        NAME: "light_mode",
-        VALUE_OPTIONS: {"off": 0, "low": 1, "medium": 2, "high": 3},
-    },  # LED mode: Off (0), Low (1), Medium (2), High (3)
-#    "a6": {NAME: "ac_output_mode"},  # Normal (0), Smart (1)
-}
-
 _A1782_0421 = {
     # F3000 param info
     TOPIC: "param_info",
@@ -906,6 +893,10 @@ _A1782_0421 = {
             },
             "17": {
                 NAME: "display_mode",  # Low (1), Medium (2), High (3)
+                TYPE: DeviceHexDataTypes.ui.value,
+            },
+            "18": {
+                NAME: "light_mode", # Off (0), Low (1), Mid (2), Bright (3)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "21": {
@@ -4355,7 +4346,6 @@ SOLIXMQTTMAP: Final[dict] = {
             # ab = min_soc: 1, 5, 10, 15, 20 %
         },
         # Interval: ~3-5 seconds, but only with realtime trigger
-        "0401": _A1782_0401,  # State info - LED light mode in a5
         "0421": _A1782_0421,
         "0502": _A1782_0502,
         # Upon request, followed by 0100 status request command
