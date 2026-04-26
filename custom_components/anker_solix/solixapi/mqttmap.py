@@ -5,11 +5,8 @@ from typing import Final
 from .apitypes import DeviceHexDataTypes
 from .mqttcmdmap import (
     BYTES,
-    CMD_AC_30A_INPUT_POWER,
     CMD_AC_CHARGE_LIMIT,
-    CMD_AC_DEFAULT_INPUT_POWER,
     CMD_AC_DC_MODE,
-    CMD_AC_EV_CONVERTER_INPUT_POWER,
     CMD_AC_FAST_CHARGE_SWITCH,
     CMD_AC_OUTPUT_MODE,
     CMD_AC_OUTPUT_SWITCH,
@@ -24,7 +21,6 @@ from .mqttcmdmap import (
     CMD_DEVICE_TIMEOUT_MIN,
     CMD_DISPLAY_MODE,
     CMD_DISPLAY_SWITCH,
-    CMD_DISPLAY_SWITCH_V2,
     CMD_DISPLAY_TIMEOUT_SEC,
     CMD_EV_AUTO_CHARGE_RESTART_SWITCH,
     CMD_EV_AUTO_START_SWITCH,
@@ -38,7 +34,6 @@ from .mqttcmdmap import (
     CMD_EV_MAX_CHARGE_CURRENT,
     CMD_EV_SOLAR_CHARGING,
     CMD_LIGHT_MODE,
-    CMD_LIGHT_MODE_V2,
     CMD_MAIN_BREAKER_LIMIT,
     CMD_MODBUS_SWITCH,
     CMD_PLUG_DELAYED_TOGGLE,
@@ -854,7 +849,7 @@ _A1782_0421 = {
     "a3": {
         BYTES: {
             "04": {
-                NAME: "ac_input_limit_max",  # Max supported charge limit, possibly fixed
+                NAME: "ac_input_limit_max",  # Max supported charge limit, seems fix
                 TYPE: DeviceHexDataTypes.sile.value,
             },
         }
@@ -921,7 +916,7 @@ _A1782_0421 = {
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "03": {
-                NAME: "battery_soh",
+                NAME: "battery_soh?",
                 TYPE: DeviceHexDataTypes.ui.value,
             },
         }

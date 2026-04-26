@@ -43,7 +43,7 @@ class SolixMqttDeviceFactory:
             pn = self.device_data.get("device_pn") or ""
             # TODO: Update factory when new device categories and criteria are implemented
             if pn in SOLIXMQTTMAP:
-                if category in [SolixDeviceType.PPS.value, SolixDeviceType.SOLARBANK_PPS.value] and pn in PPS_MODELS:
+                if category == SolixDeviceType.PPS.value and pn in PPS_MODELS:
                     return SolixMqttDevicePps(self.api, self.device_sn)
                 if category == SolixDeviceType.GENERATOR.value and pn in GENERATOR_MODELS:
                     return SolixMqttDeviceGenerator(self.api, self.device_sn)
