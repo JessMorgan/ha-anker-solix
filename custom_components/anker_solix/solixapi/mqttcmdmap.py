@@ -1386,8 +1386,8 @@ CMD_AC_DEFAULT_INPUT_POWER = CMD_COMMON_V2 | {
         TYPE: DeviceHexDataTypes.sile.value,
         STATE_NAME: "ac_default_input_power",
         VALUE_MIN: 0,
-        VALUE_MAX: 1200,
-        VALUE_STEP: 100,
+        VALUE_MAX: 1800,
+        VALUE_STEP: 200,
     },
 }
 
@@ -1398,8 +1398,8 @@ CMD_AC_30A_INPUT_POWER = CMD_COMMON_V2 | {
         TYPE: DeviceHexDataTypes.sile.value,
         STATE_NAME: "ac_30a_input_power",
         VALUE_MIN: 0,
-        VALUE_MAX: 3400,
-        VALUE_STEP: 100,
+        VALUE_MAX: 3600,
+        VALUE_STEP: 200,
     },
 }
 
@@ -1410,7 +1410,7 @@ CMD_AC_EV_CONVERTER_INPUT_POWER = CMD_COMMON_V2 | {
         TYPE: DeviceHexDataTypes.sile.value,
         STATE_NAME: "ac_ev_converter_input_power",
         VALUE_MIN: 0,
-        VALUE_MAX: 3100,
-        VALUE_STEP: 100,
+        VALUE_MAX: 3600,
+        VALUE_STEP: 200,
     },
 }
