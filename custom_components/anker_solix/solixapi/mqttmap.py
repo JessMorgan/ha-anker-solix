@@ -1026,30 +1026,6 @@ _A1782_0421 = {
             },
         }
     },
-    "ac": {
-        BYTES: {
-            "00": {
-                NAME: "usbc_3_status",  # USB-C 3 status: Inactive (0), Discharging (1), Charging (2)
-                TYPE: DeviceHexDataTypes.ui.value,
-            },
-            "01": {
-                NAME: "usbc_3_power",
-                TYPE: DeviceHexDataTypes.sile.value,
-            },
-        }
-    },
-    "ad": {
-        BYTES: {
-            "00": {
-                NAME: "usbc_4_status",  # USB-C 3 status: Inactive (0), Discharging (1), Charging (2)
-                TYPE: DeviceHexDataTypes.ui.value,
-            },
-            "01": {
-                NAME: "usbc_4_power",
-                TYPE: DeviceHexDataTypes.sile.value,
-            },
-        }
-    },
     "ae": {
         BYTES: {
             "00": {
@@ -1065,7 +1041,7 @@ _A1782_0421 = {
     "af": {
         BYTES: {
             "00": {
-                NAME: "usba_2_status",  # USB-A 1 status: Inactive (0), Discharging (1), Charging (2)
+                NAME: "usba_2_status",  # USB-A 2 status: Inactive (0), Discharging (1), Charging (2)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
             "01": {
