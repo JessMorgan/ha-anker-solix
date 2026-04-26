@@ -894,6 +894,9 @@ _A1782_0421 = {
                 NAME: "light_mode", # Off (0), Low (1), Mid (2), Bright (3)
                 TYPE: DeviceHexDataTypes.ui.value,
             },
+            "20": {
+                NAME: "ac_fast_charge_switch?",  # Ultrafast Charge switch: Disabled (0) or Enabled (1)
+            },
             "21": {
                 NAME: "display_switch",  # Off (0), On (1)
                 TYPE: DeviceHexDataTypes.ui.value,
